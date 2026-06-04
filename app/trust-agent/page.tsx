@@ -150,7 +150,7 @@ ${recommendations.join("\n")}
         </div>
 
         <p className="text-gray-400 mb-10">
-          AI-powered wallet intelligence and trust scoring system.
+          AI-powered wallet intelligence and trust scoring system. Version 2
         </p>
 
         <div className="border border-white/10 rounded-3xl p-8 bg-[#050816]">
