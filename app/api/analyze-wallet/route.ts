@@ -18,8 +18,8 @@ export async function POST(req: Request) {
     const apiKey = process.env.ETHERSCAN_API_KEY;
 
     const txResponse = await fetch(
-      `https://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
-    );
+  `https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
+);
 
     const txData = await txResponse.json();
 
