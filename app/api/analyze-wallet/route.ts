@@ -1,57 +1,73 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-try {
-const { wallet } = await req.json();
+  try {
+    const { wallet } = await req.json();
 
-```
-const apiKey = process.env.ETHERSCAN_API_KEY;
+    if (!wallet) {
+      return NextResponse.json(
+        {
+          error: "Wallet address is required",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-const txResponse = await fetch(
-  `https://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
-);
+    const apiKey = process.env.ETHERSCAN_API_KEY;
 
-const txData = await txResponse.json();
+    const txResponse = await fetch(
+      `https://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
+    );
 
-const transactions = txData.result || [];
+    const txData = await txResponse.json();
 
-const txCount = transactions.length;
+    const transactions = txData.result || [];
 
-let score = 50;
+    const txCount = transactions.length;
 
-if (txCount > 100) score += 20;
-if (txCount > 500) score += 10;
-if (txCount < 5) score -= 30;
+    let score = 50;
 
-score = Math.max(0, Math.min(score, 100));
+    if (txCount > 100) score += 20;
+    if (txCount > 500) score += 10;
+    if (txCount < 5) score -= 30;
 
-let risk = "Medium";
+    score = Math.max(0, Math.min(score, 100));
 
-if (score >= 80) risk = "Low";
-else if (score <= 30) risk = "High";
+    let risk = "Medium";
 
-let firstTxDate = "N/A";
-let lastTxDate = "N/A";
-let walletAge = "Unknown";
+    if (score >= 80) risk = "Low";
+    else if (score <= 30) risk = "High";
 
-if (transactions.length > 0) {
-  const firstTimestamp = Number(transactions[0].timeStamp) * 1000;
-  const lastTimestamp =
-    Number(transactions[transactions.length - 1].timeStamp) * 1000;
+    let firstTxDate = "N/A";
+    let lastTxDate = "N/A";
+    let walletAge = "Unknown";
 
-  firstTxDate = new Date(firstTimestamp).toLocaleDateString();
-  lastTxDate = new Date(lastTimestamp).toLocaleDateString();
+    if (transactions.length > 0) {
+      const firstTimestamp =
+        Number(transactions[0].timeStamp) * 1000;
 
-  const ageDays = Math.floor(
-    (Date.now() - firstTimestamp) / (1000 * 60 * 60 * 24)
-  );
+      const lastTimestamp =
+        Number(
+          transactions[transactions.length - 1].timeStamp
+        ) * 1000;
 
-  walletAge = `${ageDays} days`;
-}
+      firstTxDate =
+        new Date(firstTimestamp).toLocaleDateString();
 
-const analysis = `
-```
+      lastTxDate =
+        new Date(lastTimestamp).toLocaleDateString();
 
+      const ageDays = Math.floor(
+        (Date.now() - firstTimestamp) /
+          (1000 * 60 * 60 * 24)
+      );
+
+      walletAge = `${ageDays} days`;
+    }
+
+    const analysis = `
 Wallet Address: ${wallet}
 
 Wallet Age: ${walletAge}
@@ -69,37 +85,31 @@ Risk Level: ${risk}
 This wallet has ${txCount} recorded Ethereum transactions. Activity history suggests a ${risk.toLowerCase()} risk profile based on transaction volume and wallet age.
 `;
 
-```
-return NextResponse.json({
-  score,
-  risk,
-  txCount,
-  walletAge,
-  firstTxDate,
-  lastTxDate,
-  analysis,
-  recommendations: [
-    "Review transaction history.",
-    "Verify counterparties before sending funds.",
-    "Monitor unusual activity.",
-    "Check wallet reputation before large transfers."
-  ]
-});
-```
+    return NextResponse.json({
+      score,
+      risk,
+      txCount,
+      walletAge,
+      firstTxDate,
+      lastTxDate,
+      analysis,
+      recommendations: [
+        "Review transaction history.",
+        "Verify counterparties before sending funds.",
+        "Monitor unusual activity.",
+        "Check wallet reputation before large transfers.",
+      ],
+    });
+  } catch (error) {
+    console.error(error);
 
-} catch (error) {
-console.error(error);
-
-```
-return NextResponse.json(
-  {
-    error: "Failed to analyze wallet"
-  },
-  {
-    status: 500
+    return NextResponse.json(
+      {
+        error: "Failed to analyze wallet",
+      },
+      {
+        status: 500,
+      }
+    );
   }
-);
-```
-
-}
 }
