@@ -1,78 +1,56 @@
-import { GoogleGenAI } from "@google/genai";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
     const { wallet } = await req.json();
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.ETHERSCAN_API_KEY;
 
-    if (!apiKey) {
-      return Response.json(
-        {
-          score: 50,
-          risk: "UNKNOWN",
-          analysis: "GEMINI_API_KEY not found",
-          recommendations: ["Check .env.local"],
-        },
-        { status: 500 }
-      );
-    }
+    const txResponse = await fetch(
+      `https://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
+    );
 
-    const ai = new GoogleGenAI({ apiKey });
+    const txData = await txResponse.json();
 
-    const prompt = `
-Analyze this blockchain wallet address:
+    const transactions = txData.result || [];
 
-${wallet}
+    const txCount = transactions.length;
 
-Return ONLY valid JSON in this exact format:
+    let score = 50;
 
-{
-  "score": 95,
-  "risk": "LOW",
-  "analysis": "Short professional analysis under 80 words.",
-  "recommendations": [
-    "Recommendation 1",
-    "Recommendation 2",
-    "Recommendation 3"
-  ]
-}
+    if (txCount > 100) score += 20;
+    if (txCount > 500) score += 10;
 
-Rules:
-- Return ONLY JSON
-- No markdown
-- No headings
-- No bullet points
-- Analysis must be under 80 words
-- Recommendations must be short
-`;
+    if (txCount < 5) score -= 30;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: prompt,
+    score = Math.max(0, Math.min(score, 100));
+
+    let risk = "Medium";
+
+    if (score >= 80) risk = "Low";
+    else if (score <= 30) risk = "High";
+
+    return NextResponse.json({
+      score,
+      risk,
+      txCount,
+      analysis: `Wallet has ${txCount} recorded transactions on Ethereum.`,
+      recommendations: [
+        "Review transaction history.",
+        "Verify counterparties before sending funds.",
+        "Monitor unusual activity."
+      ]
     });
+  } catch (error) {
+    console.error(error);
 
-    const text = response.text || "";
-
-    const cleaned = text
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
-
-    const result = JSON.parse(cleaned);
-
-    return Response.json(result);
-  } catch (error: any) {
-    console.error("GEMINI ERROR:", error);
-
-    return Response.json(
+    return NextResponse.json(
       {
-        score: 50,
-        risk: "UNKNOWN",
-        analysis: "AI analysis failed.",
-        recommendations: ["Retry analysis"],
+        error: "Failed to analyze wallet"
       },
-      { status: 500 }
+      {
+        status: 500
+      }
     );
   }
 }
