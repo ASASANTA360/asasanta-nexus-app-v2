@@ -48,6 +48,19 @@ export async function POST(req: Request) {
     if (score >= 80) risk = "Low";
     else if (score <= 30) risk = "High";
 
+    let signal = "Caution";
+
+    if (score >= 80) signal = "Trade";
+    else if (score <= 30) signal = "Avoid";
+
+    let reputation = "Active Wallet";
+
+    if (score >= 80) {
+      reputation = "Trusted Wallet";
+    } else if (score <= 30) {
+      reputation = "High Risk Wallet";
+    }
+
     let firstTxDate = "N/A";
     let lastTxDate = "N/A";
     let walletAge = "Unknown";
@@ -71,6 +84,10 @@ export async function POST(req: Request) {
         );
 
         walletAge = `${ageDays} days`;
+
+        if (ageDays < 30) {
+          reputation = "New Wallet";
+        }
       }
 
       if (lastTimestamp > 0) {
@@ -81,6 +98,10 @@ export async function POST(req: Request) {
 
     const analysis = `
 Wallet Address: ${wallet}
+
+Wallet Reputation: ${reputation}
+
+Trading Signal: ${signal}
 
 Wallet Age: ${walletAge}
 
@@ -94,22 +115,25 @@ Trust Score: ${score}%
 
 Risk Level: ${risk}
 
-This wallet has ${txCount} recorded Ethereum transactions. Activity history suggests a ${risk.toLowerCase()} risk profile based on transaction volume and wallet age.
+This wallet has ${txCount} recorded Ethereum transactions and has been active for ${walletAge}. Based on transaction activity, wallet age, and trust score, the AI engine classifies this wallet as ${reputation} with a ${risk.toLowerCase()} risk profile. Current trading recommendation: ${signal}.
 `;
 
     return NextResponse.json({
       score,
       risk,
+      signal,
+      reputation,
       txCount,
       walletAge,
       firstTxDate,
       lastTxDate,
       analysis,
       recommendations: [
-        "Review transaction history.",
+        "Review transaction history before trading.",
         "Verify counterparties before sending funds.",
-        "Monitor unusual activity.",
+        "Monitor unusual activity patterns.",
         "Check wallet reputation before large transfers.",
+        `Current AI Trading Signal: ${signal}`,
       ],
     });
   } catch (error) {

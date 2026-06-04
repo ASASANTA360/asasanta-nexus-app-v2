@@ -1,58 +1,102 @@
-# Asasanta Nexus
+# Asasanta AI Agent
 
-Asasanta Nexus is an AI-powered digital infrastructure platform focused on identity verification, trust intelligence, automation, and blockchain-powered financial solutions.
+## Overview
+
+Asasanta AI Agent is an AI-powered Trading Risk Intelligence Platform designed to improve trust, transparency, and decision-making in blockchain ecosystems.
+
+The platform analyzes wallet activity, transaction history, wallet age, and behavioral patterns to generate trust scores, risk classifications, AI trading signals, and actionable recommendations.
+
+## Problem
+
+Blockchain users frequently interact with unknown wallets and counterparties without sufficient information about risk, reputation, or transaction history. This creates opportunities for fraud, poor trading decisions, and financial losses.
+
+## Solution
+
+Asasanta AI Agent provides:
+
+* Wallet Trust Scoring
+* AI Risk Assessment
+* Trading Signal Generation
+* Wallet Reputation Analysis
+* Transaction Intelligence
+* AI Recommendations
+* PDF Report Generation
+* MetaMask Integration
 
 ## Features
 
-### AI Trust Agent
+### Trust Score
 
-* Gemini AI wallet analysis
-* Blockchain wallet trust scoring
-* Risk assessment and reputation analysis
-* AI-generated recommendations
-* PDF trust report export
-* MetaMask integration
+Generates a trust score between 0 and 100 based on wallet activity.
 
-### Digital Verification
+### Risk Classification
 
-* KYC workflows
-* Identity verification services
-* Smart verification processes
+Classifies wallets as Low, Medium, or High Risk.
 
-### AI & Automation
+### AI Decision Engine
 
-* AI-powered support assistant
-* Intelligent workflow automation
-* Smart customer interaction systems
+Produces AI-powered decisions:
 
-## Tech Stack
+* Trade
+* Caution
+* Avoid
+
+### Wallet Reputation
+
+Identifies wallets as:
+
+* Trusted Wallet
+* Active Wallet
+* New Wallet
+* High Risk Wallet
+
+### Analytics
+
+Provides:
+
+* Wallet Age
+* Transaction Count
+* Activity History
+* AI-generated Insights
+
+## Technology Stack
+
+Frontend:
 
 * Next.js
+* React
 * TypeScript
 * Tailwind CSS
-* Gemini AI
-* Ethers.js
+
+Blockchain:
+
+* Ethereum
 * MetaMask
+* Ethers.js
+* Etherscan API V2
+
+Backend:
+
+* Next.js API Routes
+
+Reporting:
+
 * jsPDF
 
-## Live Features
+Deployment:
 
-* Wallet Risk Analysis
-* AI Trust Scoring
-* AI Recommendations
-* PDF Report Generation
-* Blockchain Intelligence
+* Vercel
 
-## Vision
+## Impact
 
-Building intelligent digital infrastructure for Africa through AI, blockchain technology, identity verification, and trust-based financial systems.
+Asasanta AI Agent helps reduce information asymmetry between retail and institutional participants by providing transparent, explainable, and actionable blockchain intelligence.
 
-## Built By
+## Future Roadmap
 
-Asasanta Digital Services Ltd.
-
-Website: https://asasantaglobal.online
-
-## Project Status
-
-Production Ready MVP 🚀
+* Multi-chain support
+* Mantle integration
+* Agentic wallets
+* Real-time monitoring
+* AI trading automation
+* On-chain reputation systems
+* Risk prediction models

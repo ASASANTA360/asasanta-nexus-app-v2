@@ -18,6 +18,9 @@ const [lastTxDate, setLastTxDate] = useState("");
 const [txCount, setTxCount] = useState<number | null>(null);
 
 const [recommendations, setRecommendations] = useState<string[]>([]);
+const [signal, setSignal] = useState("");
+const [reputation, setReputation] = useState("");
+const [decision, setDecision] = useState("");
 
 
   const connectWallet = async () => {
@@ -62,9 +65,15 @@ const [recommendations, setRecommendations] = useState<string[]>([]);
 
       const data = await response.json();
 
-      setScore(data.score);
+console.log(data);
+
+setScore(data.score);
 setRisk(data.risk);
 setAnalysis(data.analysis);
+
+setSignal(data.signal || "");
+setDecision(data.signal || "");
+setReputation(data.reputation || "");
 
 setWalletAge(data.walletAge || "");
 setFirstTxDate(data.firstTxDate || "");
@@ -190,7 +199,7 @@ ${recommendations.join("\n")}
 
         {score !== null && (
           <>
-            <div className="grid md:grid-cols-2 gap-6 mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
 
               <div className="bg-[#050816] border border-white/10 rounded-3xl p-6">
 
@@ -224,6 +233,50 @@ ${recommendations.join("\n")}
               </div>
 
             </div>
+            <div className="bg-[#050816] border border-white/10 rounded-3xl p-6">
+  <p className="text-gray-400">
+    AI Decision
+  </p>
+
+  <h2
+    className={`text-4xl font-bold mt-4 ${
+      decision === "Trade"
+        ? "text-green-400"
+        : decision === "Avoid"
+        ? "text-red-400"
+        : "text-yellow-400"
+    }`}
+  >
+    {decision}
+  </h2>
+</div>
+            <div className="bg-[#050816] border border-white/10 rounded-3xl p-6">
+  <p className="text-gray-400">Trading Signal</p>
+  <h2 className="text-4xl font-bold text-cyan-400 mt-4">
+    {signal}
+  </h2>
+</div>
+
+<div className="bg-[#050816] border border-white/10 rounded-3xl p-6">
+  <p className="text-gray-400">Wallet Reputation</p>
+  <h2 className="text-3xl font-bold text-purple-400 mt-4">
+    {reputation}
+  </h2>
+</div>
+
+<div className="bg-[#050816] border border-white/10 rounded-3xl p-6">
+  <p className="text-gray-400">Wallet Age</p>
+  <h2 className="text-3xl font-bold text-green-400 mt-4">
+    {walletAge}
+  </h2>
+</div>
+
+<div className="bg-[#050816] border border-white/10 rounded-3xl p-6">
+  <p className="text-gray-400">Transactions</p>
+  <h2 className="text-4xl font-bold text-orange-400 mt-4">
+    {txCount}
+  </h2>
+</div>
 
             <div className="mt-8 bg-[#050816] border border-white/10 rounded-3xl p-8">
 
@@ -273,7 +326,7 @@ ${recommendations.join("\n")}
           </>
         )}
 
-      </div>
-    </main>
-  );
+    </div>
+</main>
+);
 }
