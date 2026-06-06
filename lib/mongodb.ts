@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI: string = process.env.MONGODB_URI || "";
 
 if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable");
+  throw new Error(
+    "Please define the MONGODB_URI environment variable"
+  );
 }
 
 let cached = (global as any).mongoose;
@@ -33,12 +35,16 @@ async function connectDB() {
         return mongoose;
       })
       .catch((error) => {
-        console.error("❌ MongoDB connection error:", error);
+        console.error(
+          "❌ MongoDB connection error:",
+          error
+        );
         throw error;
       });
   }
 
   cached.conn = await cached.promise;
+
   return cached.conn;
 }
 
