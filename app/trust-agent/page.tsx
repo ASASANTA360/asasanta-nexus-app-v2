@@ -94,9 +94,9 @@
     }
 
    };
-    return (
-  <>
-    <Script
+   return (
+<div>
+  <Script
       src="https://sdk.minepi.com/pi-sdk.js"
       strategy="afterInteractive"
       onLoad={() => {
@@ -585,8 +585,8 @@
   )}
 
       </div>
-    </main>
-  </>
+   </main>
+</div>
 );
 }
 
