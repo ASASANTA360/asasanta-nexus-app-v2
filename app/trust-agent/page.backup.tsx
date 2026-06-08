@@ -579,13 +579,12 @@
        }}
            className="mt-6 bg-blue-600 px-6 py-3 rounded font-bold"
     >
-                  Save To Casper
+          Save To Casper
           </button>
-     </div>
-  )}
-
       </div>
+
     </main>
-  </>
-);
+
+  );
+
 }

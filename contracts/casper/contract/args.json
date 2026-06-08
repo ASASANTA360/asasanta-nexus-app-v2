@@ -1,0 +1,22 @@
+[
+  {
+    "name":"user_id",
+    "type":"String",
+    "value":"SALISU001"
+  },
+  {
+    "name":"trust_score",
+    "type":"U64",
+    "value":95
+  },
+  {
+    "name":"kyc_status",
+    "type":"Bool",
+    "value":true
+  },
+  {
+    "name":"ai_decision",
+    "type":"String",
+    "value":"APPROVED"
+  }
+]
