@@ -44,88 +44,49 @@ export default function Dashboard() {
             </p>
 
           </div>
-<button
-  onClick={async () => {
-  try {
-    alert("Login button clicked");
-    const pi = (window as any).Pi;
-
-    if (!pi) {
-      alert("Pi SDK not loaded");
-      return;
-    }
-
-    const auth = await pi.authenticate([
-  "username",
-  "payments",
-]);
-console.log("AUTH RESULT:", auth);
-console.log("USER:", auth?.user);
-console.log("ACCESS TOKEN:", auth?.accessToken);
-    console.log("AUTH:", auth);
-
-    await fetch("/api/pi-login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uid: auth.user.uid,
-        username: auth.user.username,
-      }),
-    });
-
-    alert(`Welcome ${auth.user.username}`);
-
-  } catch (err: any) {
-    console.error("FULL ERROR:", err);
-    alert(err?.message || "Login failed");
-  }
-}}
-  className="px-8 py-4 rounded-2xl bg-purple-600 text-white font-bold hover:scale-105 transition-all duration-300"
->
-  Login with Pi
-</button>
 
 <button
   onClick={async () => {
     try {
-      await (window as any).Pi.createPayment(
-        {
-          amount: 0.01,
-          memo: "Test Payment",
-          metadata: {
-            type: "test",
-          },
+      console.log("Starting Pi login...");
+
+      const pi = (window as any).Pi;
+
+      if (!pi) {
+        alert("Pi SDK not loaded");
+        return;
+      }
+
+      const auth = await pi.authenticate([
+        "username",
+        "payments",
+      ]);
+
+      console.log("AUTH RESULT:", auth);
+      console.log("USER:", auth.user);
+      console.log("ACCESS TOKEN:", auth.accessToken);
+
+      await fetch("/api/pi-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          onReadyForServerApproval: (paymentId: string) => {
-            console.log("Payment ID:", paymentId);
-          },
+        body: JSON.stringify({
+          uid: auth.user.uid,
+          username: auth.user.username,
+        }),
+      });
 
-          onReadyForServerCompletion: (
-            paymentId: string,
-            txid: string
-          ) => {
-            console.log("TXID:", txid);
-          },
+      alert(`Welcome ${auth.user.username}`);
 
-          onCancel: (payment: any) => {
-            console.log("Payment Cancelled", payment);
-          },
-
-          onError: (error: any) => {
-            console.error(error);
-          },
-        }
-      );
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      console.error("LOGIN ERROR:", err);
+      alert(err?.message || "Login failed");
     }
   }}
-  className="px-8 py-4 rounded-2xl bg-green-600 text-white font-bold"
+  className="px-8 py-4 rounded-2xl bg-purple-600 text-white font-bold hover:scale-105 transition-all duration-300"
 >
-  Test Pi Payment
+  Login with Pi
 </button>
 
         </div>
