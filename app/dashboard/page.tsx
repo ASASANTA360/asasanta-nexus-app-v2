@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import AIAssistant from "@/components/AIAssistant";
+import PharosWallet from "@/components/PharosWallet";
+import StoreOnPharos from "@/components/StoreOnPharos";
+import { QRCodeSVG } from "qrcode.react";
 
 export default function Dashboard() {
 
@@ -11,6 +14,12 @@ export default function Dashboard() {
   fraud: "Not scanned",
   decision: "Waiting",
 });
+
+const [blockchainRecords, setBlockchainRecords] = useState<any[]>([]);
+
+const [aiResult, setAIResult] = useState<any>(null);
+
+const [certificateId, setCertificateId] = useState("");
 
 useEffect(() => {
   const pi = (window as any).Pi;
@@ -26,11 +35,36 @@ useEffect(() => {
     });
 
     console.log("PI INIT SUCCESS");
+
   } catch (err) {
     console.error("PI INIT ERROR:", err);
   }
 }, []);
+       useEffect(() => {
+  async function loadBlockchainRecords() {
+    try {
+      const res = await fetch(
+        "/api/blockchain/records"
+      );
 
+      const data = await res.json();
+
+      setBlockchainRecords(
+        data.records || []
+      );
+
+    } catch (error) {
+      console.error(
+        "Failed to load blockchain records:",
+        error
+      );
+    }
+  }
+
+  loadBlockchainRecords();
+
+}, []);
+  
 const runAIAnalysis = async () => {
   try {
 
@@ -109,13 +143,25 @@ const runAIAnalysis = async () => {
       }
     ).then(res => res.json());
 
+const result = {
+  userId: "ASASANTA001",
+  identityScore: 98,
+  trustScore: 100,
+  fraudScore: 5,
+  decision: decision.result.decision,
+};
 
-    setAnalysis({
-      identity: "Verified 98%",
-      trust: "100/100 Low Risk",
-      fraud: "Safe (Score 5)",
-      decision: decision.result.decision,
-    });
+setAIResult(result);
+setCertificateId(
+  `CERT-${result.userId}-${crypto.randomUUID().slice(0, 8)}`
+);
+
+setAnalysis({
+  identity: `Verified ${result.identityScore}%`,
+  trust: `${result.trustScore}/100 Low Risk`,
+  fraud: `Safe (Score ${result.fraudScore})`,
+  decision: result.decision,
+});
 
 
   } catch (error) {
@@ -144,8 +190,8 @@ const runAIAnalysis = async () => {
             </p>
 
           </div>
-
-<button
+          
+ <button
   onClick={async () => {
     try {
       const pi = (window as any).Pi;
@@ -549,7 +595,7 @@ const runAIAnalysis = async () => {
       </div>
 
       <div className="text-green-400 font-bold text-xl">
-        ACTIVE
+            {aiResult ? "ACTIVE" : "PENDING"}
       </div>
 
     </div>
@@ -563,7 +609,7 @@ const runAIAnalysis = async () => {
         </p>
 
         <h3 className="text-2xl font-black mt-2">
-          CERT-GATQHKMD
+              {certificateId || "Pending"}
         </h3>
 
       </div>
@@ -576,8 +622,8 @@ const runAIAnalysis = async () => {
         </p>
 
         <h3 className="text-2xl font-black mt-2">
-          ASASANTA001
-        </h3>
+            {aiResult?.userId || "No User"}
+      </h3>
 
       </div>
 
@@ -589,7 +635,7 @@ const runAIAnalysis = async () => {
         </p>
 
         <h3 className="text-2xl font-black text-cyan-400 mt-2">
-          100 / 100
+             {aiResult ? `${aiResult.trustScore} / 100` : "No Score"}
         </h3>
 
       </div>
@@ -601,9 +647,9 @@ const runAIAnalysis = async () => {
           AI Decision
         </p>
 
-        <h3 className="text-2xl font-black text-green-400 mt-2">
-          APPROVED
-        </h3>
+       <h3 className="text-2xl font-black text-green-400 mt-2">
+            {aiResult?.decision || "Waiting"}
+       </h3>
 
       </div>
 
@@ -636,11 +682,81 @@ const runAIAnalysis = async () => {
     </div>
 
   </div>
+  
+</section>
+{/* Pharos Wallet */}
+<section className="max-w-7xl mx-auto px-6 pb-12">
+  <PharosWallet />
+</section>
+{/* Store AI Trust Proof */}
+<section className="max-w-7xl mx-auto px-6 pb-12">
+
+  <StoreOnPharos aiResult={aiResult} />
 
 </section>
 
       {/* AI Assistant */}
       <AIAssistant />
+
+      <div className="mt-10 bg-gray-950 border border-gray-800 rounded-2xl p-6">
+
+  <h2 className="text-2xl font-semibold mb-6">
+    Pharos Blockchain Records
+  </h2>
+
+  <div className="space-y-4">
+
+    {blockchainRecords.length === 0 ? (
+
+      <p className="text-gray-400">
+        No blockchain records found
+      </p>
+
+    ) : (
+
+      blockchainRecords.map((record, index) => (
+
+        <div
+          key={index}
+          className="bg-black border border-gray-800 rounded-xl p-4"
+        >
+
+          <p className="font-bold text-cyan-400">
+            User ID: {record.userId}
+          </p>
+
+          <p className="text-green-400">
+            Trust Score: {record.trustScore}
+          </p>
+
+          <p className="text-yellow-400">
+            Decision: {record.decision}
+          </p>
+
+          <p className="text-gray-400">
+            Network: {record.network}
+          </p>
+
+          <p className="text-purple-400 break-all">
+            Transaction:
+            {record.txHash}
+          </p>
+
+          <p className="text-gray-500">
+            Date:
+            {new Date(record.createdAt)
+              .toLocaleString()}
+          </p>
+
+        </div>
+
+      ))
+
+    )}
+
+  </div>
+
+</div>
 
     </main>
   );

@@ -1,0 +1,49 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-7d10177c6d7929e2d06bc0e828cebeb191d76760",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "toolVersions": {
+    "hardhat": "3.9.0"
+  },
+  "userSourceNameMap": {
+    "contracts/casper/AsasantaTrust.sol": "project/contracts/casper/AsasantaTrust.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode.linkReferences",
+            "evm.bytecode.object",
+            "evm.bytecode.opcodes",
+            "evm.bytecode.sourceMap",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.opcodes",
+            "evm.deployedBytecode.sourceMap",
+            "evm.methodIdentifiers"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/casper/AsasantaTrust.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.20;\r\n\r\ncontract AsasantaTrust {\r\n\r\n    struct TrustProof {\r\n        string userId;\r\n        uint256 trustScore;\r\n        string decision;\r\n        uint256 timestamp;\r\n    }\r\n\r\n    mapping(string => TrustProof) public proofs;\r\n\r\n    event TrustProofStored(\r\n        string userId,\r\n        uint256 trustScore,\r\n        string decision,\r\n        uint256 timestamp\r\n    );\r\n\r\n\r\n    function submitTrustProof(\r\n        string memory userId,\r\n        uint256 trustScore,\r\n        string memory decision\r\n    ) public {\r\n\r\n        proofs[userId] = TrustProof({\r\n            userId: userId,\r\n            trustScore: trustScore,\r\n            decision: decision,\r\n            timestamp: block.timestamp\r\n        });\r\n\r\n\r\n        emit TrustProofStored(\r\n            userId,\r\n            trustScore,\r\n            decision,\r\n            block.timestamp\r\n        );\r\n    }\r\n\r\n\r\n    function getTrustProof(\r\n        string memory userId\r\n    )\r\n        public\r\n        view\r\n        returns (\r\n            string memory,\r\n            uint256,\r\n            string memory,\r\n            uint256\r\n        )\r\n    {\r\n        TrustProof memory proof = proofs[userId];\r\n\r\n        return (\r\n            proof.userId,\r\n            proof.trustScore,\r\n            proof.decision,\r\n            proof.timestamp\r\n        );\r\n    }\r\n}"
+      }
+    }
+  }
+}
