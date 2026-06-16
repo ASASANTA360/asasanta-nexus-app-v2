@@ -4,6 +4,9 @@
 ![Casper](https://img.shields.io/badge/Blockchain-Casper-purple)
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-green)
 ![Status](https://img.shields.io/badge/Status-Production_MVP-success)
+<p align="center">
+  <img src="./docs/cover.png" alt="Asasanta Trust Agent Cover" width="100%">
+</p>
 
 </p> # 🧠 Asasanta Trust Agent Infrastructure on Pharos Blockchain
 
