@@ -7,6 +7,10 @@
 <p align="center">
   <img src="./docs/cover.png" alt="Asasanta Trust Agent Cover" width="100%">
 </p>
+## 🧠 AI Trust Agent Architecture
+<p align="center">
+  <img src="./docs/architecture.png" width="100%" alt="Asasanta Trust Agent Architecture">
+</p>
 
 </p> # 🧠 Asasanta Trust Agent Infrastructure on casper Blockchain
 
