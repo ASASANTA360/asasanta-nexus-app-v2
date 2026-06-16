@@ -8,7 +8,7 @@
   <img src="./docs/cover.png" alt="Asasanta Trust Agent Cover" width="100%">
 </p>
 
-</p> # 🧠 Asasanta Trust Agent Infrastructure on Pharos Blockchain
+</p> # 🧠 Asasanta Trust Agent Infrastructure on casper Blockchain
 
 ## 🚀 Overview
 
