@@ -1,303 +1,100 @@
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
-![AI](https://img.shields.io/badge/AI-Agentic_AI-orange)
-![Casper](https://img.shields.io/badge/Blockchain-Casper-purple)
-![MongoDB](https://img.shields.io/badge/Database-MongoDB-green)
-![Status](https://img.shields.io/badge/Status-Production_MVP-success)
-<p align="center">
-  <img src="./docs/cover.png" alt="Asasanta Trust Agent Cover" width="100%">
-</p>
-## 🧠 AI Trust Agent Architecture
-<p align="center">
-  <img src="./docs/architecture.png" width="100%" alt="Asasanta Trust Agent Architecture">
-</p>
+# Asasanta Trust Agent
 
-</p> # 🧠 Asasanta Trust Agent Infrastructure on casper Blockchain
+> AI-assisted trust-review MVP with explainable scoring and privacy-preserving Casper Testnet proof anchoring.
 
-## 🚀 Overview
+## What it demonstrates
 
-Asasanta Trust Agent is an AI-powered trust infrastructure designed to solve identity fraud, fake digital records, and the lack of transparent reputation systems.
+Asasanta Trust Agent is a hackathon prototype for structured trust review. A reviewer enters non-sensitive demo signals, receives a transparent score and decision, generates a SHA-256 proof receipt, and can optionally anchor only that proof hash on Casper Testnet.
 
-The platform combines reusable AI Skills with the Pharos blockchain to analyze digital trust, detect fraud, calculate trust scores, generate immutable on-chain trust proofs, and issue publicly verifiable digital trust certificates.
+The MVP is intentionally designed to **avoid collecting raw government identifiers, BVN/NIN values, phone numbers, email addresses, or document images**.
 
-Asasanta Trust Agent is built as a composable AI Trust Agent, where individual Skills can be integrated into other AI Agents, applications, and decentralized ecosystems.
+## Core workflow
 
----
+1. Enter a non-sensitive demo case reference and review signals.
+2. Run the deterministic, explainable trust engine.
+3. Review the score breakdown, risk level, decision, and reviewer signals.
+4. Generate a privacy-preserving SHA-256 proof fingerprint.
+5. Optionally submit the proof hash, score, and decision metadata to the Casper Testnet contract.
 
-# ❗ Problem
+## Technical features
 
-Millions of people and organizations struggle with digital trust challenges:
+- **Explainable trust engine**: deterministic scoring with visible positive and negative factors.
+- **Decision guardrails**: `APPROVE`, `REVIEW_REQUIRED`, and `DECLINE` are based on defined thresholds.
+- **Privacy-first receipts**: only a generated proof hash is eligible for on-chain anchoring.
+- **Casper Testnet integration**: contract entry point `register_user` receives a proof reference rather than raw identity data.
+- **Downloadable audit receipt**: users can export a JSON receipt containing the score, decision, timestamp, and proof fingerprint.
+- **Clear MVP limitations**: this app is not a government identity provider and does not replace KYC, AML, legal, or compliance processes.
 
-* Identity fraud and impersonation
-* Fake digital records and credentials
-* Lack of reliable reputation systems
-* Limited access to trusted financial services
-* Centralized databases that can be manipulated or difficult to verify
+## Architecture
 
-Traditional trust systems are often controlled by centralized institutions, making transparency, portability, and global verification difficult.
+```text
+Demo reviewer
+  ↓
+Next.js Trust Agent UI
+  ↓
+/api/trust-agent
+  ↓
+lib/trust-engine.ts
+  ↓
+Explainable assessment + SHA-256 proof receipt
+  ↓
+/api/casper/register (optional, secure signer required)
+  ↓
+Casper Testnet contract: register_user
+```
 
----
+## Casper integration
 
-# 💡 Solution
+The current MVP references this Casper Testnet contract package hash:
 
-Asasanta Nexus introduces an intelligent AI Trust Agent that:
+```text
+dcc0ba60b15e82e5d3cada693f5ece98cb825faa1314dd7d81dee90fad180d05
+```
 
-* Verifies digital identities
-* Calculates AI-powered trust scores
-* Detects suspicious behavior and fraud risks
-* Makes autonomous trust decisions
-* Generates blockchain trust proofs
-* Issues verifiable digital trust certificates
-* Enables public trust verification through QR codes
+For local or secure server deployment, configure the following environment variables. Do not commit a secret key to the repository.
 
----
+```bash
+CASPER_NODE_ADDRESS=http://YOUR_CASPER_RPC_HOST:7777/rpc
+CASPER_CHAIN_NAME=casper-test
+CASPER_SECRET_KEY_PATH=/secure/path/to/secret_key.pem
+CASPER_CONTRACT_PACKAGE_HASH=dcc0ba60b15e82e5d3cada693f5ece98cb825faa1314dd7d81dee90fad180d05
+```
 
-# 🧩 Reusable AI Skills
+When the secure signer is not configured, the UI reports that on-chain anchoring is unavailable rather than returning a fake success state.
 
-The Asasanta Nexus AI Agent is built using independent reusable Skills that can be called by other AI Agents or applications.
+## Run locally
 
-## 🪪 Identity Verification Skill
-
-Input:
-
-* User identity information
-
-Output:
-
-* Verification status
-* Identity confidence score
-* Risk assessment
-
----
-
-## 📊 Trust Score AI Skill
-
-Input:
-
-* Identity data
-* Behavioral indicators
-* Risk signals
-
-Output:
-
-* AI-generated trust score from 0–100
-
----
-
-## 🚨 Fraud Detection Skill
-
-Input:
-
-* User activity and security signals
-
-Output:
-
-* Fraud risk analysis
-* Suspicious activity detection
-
----
-
-## 🤖 AI Decision Skill
-
-Combines all AI results and produces a final decision:
-
-* Approved
-* Review Required
-* Rejected
-
----
-
-## 🔗 Pharos Trust Proof Skill
-
-Creates immutable blockchain trust records.
-
-Input:
-
-* AI trust result
-* Trust score
-* Verification metadata
-
-Output:
-
-* On-chain proof
-* Transaction hash
-* Blockchain verification record
-
----
-
-# 🧠 AI Agent Architecture
-
-User
-
-↓
-
-Identity Verification Skill
-
-↓
-
-Trust Score AI Skill
-
-↓
-
-Fraud Detection Skill
-
-↓
-
-AI Decision Engine
-
-↓
-
-Pharos Trust Proof Skill
-
-↓
-
-Pharos Blockchain Layer
-
-↓
-
-Digital Trust Certificate
-
-↓
-
-Public Verification Portal
-
----
-
-# ⚙️ Core Features
-
-## 🤖 AI Trust Analysis
-
-An intelligent AI engine that evaluates user trust and produces transparent verification decisions.
-
----
-
-## 🔐 Pharos Blockchain Integration
-
-The system integrates with Pharos to:
-
-* Store AI trust proofs on-chain
-* Generate blockchain transaction records
-* Create transparent and immutable verification history
-
----
-
-## 🪪 Digital Trust Certificate
-
-Each successful verification generates:
-
-* Unique Certificate ID
-* Trust Score
-* AI Decision
-* Blockchain transaction reference
-* QR-based verification link
-
----
-
-## 🌐 Public Verification Portal
-
-Anyone can verify a certificate through a public verification page.
-
-Example:
-
-/verify/CERT-ASASANTA001-123456
-
----
-
-# 🛠 Technology Stack
-
-## Frontend
-
-* Next.js
-* TypeScript
-* Tailwind CSS
-
-## Backend
-
-* Next.js API Routes
-* TypeScript
-
-## AI Layer
-
-* Google Gemini AI
-* Identity Verification Engine
-* Trust Score Engine
-* Fraud Detection Engine
-* AI Agent Controller
-
-## Blockchain Layer
-
-* Pharos Atlantic Testnet
-* Solidity Smart Contracts
-* MetaMask Wallet Integration
-* On-chain Trust Proof Storage
-
-## Database
-
-* MongoDB
-
----
-
-# 📦 Installation
-
-Clone the repository:
-
-git clone https://github.com/ASASANTA360/asasanta-nexus-app-v2.git
-
-Install dependencies:
-
+```bash
 npm install
-
-Run the development server:
-
 npm run dev
+```
 
-Open:
+Open `http://localhost:3000`.
 
-http://localhost:3000
+## Demo script
 
----
+1. Open the landing page and explain the privacy-first scope.
+2. Launch `/trust-agent`.
+3. Enter a demo case reference such as `DEMO-TRUST-001`.
+4. Run the assessment and show the score breakdown.
+5. Copy or download the proof receipt.
+6. Explain that the Casper step anchors only the proof hash, not raw identity data.
 
-# 🎬 Demo Workflow
+## Stack
 
-1. User connects a wallet to Pharos.
-2. AI Agent performs trust analysis.
-3. AI Skills generate trust score and fraud assessment.
-4. AI Decision Engine produces a final trust decision.
-5. Trust Proof Skill stores verification data on Pharos.
-6. A digital trust certificate is generated.
-7. Anyone can verify the certificate using a QR code.
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Casper JavaScript SDK / Casper client integration
+- MongoDB (available for future persisted audit records)
 
----
+## Important limitations
 
-# 🌍 Real-World Use Cases
+- The score is a deterministic demo model, not a credit score or official KYC result.
+- The app must not be used to make legal, employment, lending, immigration, insurance, or other high-impact automated decisions.
+- A production system should use verified evidence providers, human oversight, consent management, access controls, audit retention policies, and a dedicated secure signer service.
 
-* Digital identity verification
-* AI Agent reputation systems
-* Web3 trust infrastructure
-* Financial inclusion
-* Online marketplace reputation
-* Decentralized credential verification
+## Built for
 
----
-
-# 🔮 Future Development
-
-* Decentralized Identity (DID) support
-* AI Agent reputation profiles
-* Cross-chain trust verification
-* Enterprise APIs and SDKs
-* AI-to-AI trust interoperability
-
----
-
-# 🏆 Hackathon Vision
-
-Asasanta Nexus aims to become the trust infrastructure layer for AI Agents, digital identity, RealFi, and the future of decentralized economies.
-
-By combining autonomous AI decision-making with transparent blockchain verification, Asasanta Nexus enables safer digital interactions and verifiable online reputation.
-
----
-
-## 🚀 Built for the Pharos Skill-to-Agent Dual Cascade Hackathon
-
-Created by **Asasanta Global Technologies**
+Casper Agentic Buildathon · Asasanta Global Technologies
