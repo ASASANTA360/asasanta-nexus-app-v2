@@ -1,348 +1,219 @@
+const contractPackageHash =
+  "dcc0ba60b15e82e5d3cada693f5ece98cb825faa1314dd7d81dee90fad180d05";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white overflow-hidden">
+    <main className="min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.14),_transparent_34%),radial-gradient(circle_at_80%_20%,_rgba(99,102,241,0.16),_transparent_30%)]" />
 
-      {/* Navbar */}
-      <nav className="w-full border-b border-white/10 backdrop-blur-xl sticky top-0 z-50 bg-black/70">
+      <nav className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <a href="/" className="flex items-center gap-3 font-semibold tracking-tight">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-cyan-300 text-lg font-black text-slate-950">
+              A
+            </span>
+            <span>
+              Asasanta <span className="text-cyan-300">Trust Agent</span>
+            </span>
+          </a>
 
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-
-          <h1 className="text-3xl font-bold">
-            Asasanta Nexus
-          </h1>
-
-          <div className="hidden md:flex items-center gap-10 text-gray-300">
-
-            <a href="/" className="hover:text-white transition">
-              Home
+          <div className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+            <a href="#how-it-works" className="transition hover:text-white">How it works</a>
+            <a href="#casper" className="transition hover:text-white">Casper proof</a>
+            <a href="#guardrails" className="transition hover:text-white">MVP guardrails</a>
+            <a
+              href="/trust-agent"
+              className="rounded-xl bg-cyan-300 px-4 py-2.5 font-semibold text-slate-950 transition hover:bg-cyan-200"
+            >
+              Launch demo
             </a>
-
-            <a href="/dashboard" className="hover:text-white transition">
-              Dashboard
-            </a>
-
-            <a href="/kyc" className="hover:text-white transition">
-              KYC
-            </a>
-
-            <a href="/loans" className="hover:text-white transition">
-              Loans
-            </a>
-
-            <button className="px-6 py-3 rounded-2xl bg-white text-black font-semibold hover:scale-105 transition-all duration-300">
-              Login
-            </button>
-
           </div>
-
         </div>
-
       </nav>
 
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent" />
-
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center px-6 md:px-12 py-24 relative z-10">
-
-          {/* Left */}
-          <div>
-
-            <div className="inline-flex items-center px-6 py-3 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-gray-300 mb-10 shadow-[0_0_60px_rgba(34,211,238,0.1)]">
-              AI • Blockchain • Financial Infrastructure
-            </div>
-
-            <h1 className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tight">
-
-              <span className="text-white">
-                Asasanta
-              </span>
-
-              <br />
-
-              <span className="text-gray-400">
-                Nexus
-              </span>
-
-            </h1>
-
-            <p className="mt-10 text-gray-400 text-xl leading-relaxed max-w-2xl">
-              Enterprise-grade AI-powered identity verification,
-              decentralized finance infrastructure, smart lending,
-              and blockchain-powered trust systems.
-            </p>
-
-            {/* CTA */}
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-5 mt-12">
-
-              <button className="px-8 py-4 rounded-2xl bg-cyan-400 text-black font-bold hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(34,211,238,0.3)]">
-                Launch Platform
-              </button>
-
-              <button className="px-8 py-4 rounded-2xl border border-white/20 hover:bg-white/10 transition-all duration-300">
-                Request Demo
-              </button>
-
-            </div>
-
+      <section className="mx-auto grid max-w-7xl gap-14 px-6 pb-24 pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-28">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200/20 bg-cyan-200/10 px-4 py-2 text-sm text-cyan-100">
+            <span className="h-2 w-2 rounded-full bg-cyan-300" />
+            Casper Agentic Buildathon MVP · Casper Testnet
           </div>
 
-          {/* Right Dashboard */}
-          <div className="relative">
+          <h1 className="mt-7 max-w-4xl text-5xl font-black leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
+            Trust decisions that are easier to explain and harder to alter.
+          </h1>
 
-            <div className="absolute inset-0 bg-cyan-400/10 blur-3xl rounded-full" />
-
-            <div className="relative border border-white/10 rounded-[40px] bg-[#050816] p-10 shadow-[0_0_80px_rgba(34,211,238,0.08)]">
-
-              <div className="border border-white/10 rounded-[30px] p-10 bg-black">
-
-                <p className="text-gray-400 text-3xl">
-                  AI Trust Score
-                </p>
-
-                <h2 className="text-[120px] font-black text-green-400 leading-none mt-6">
-                  98%
-                </h2>
-
-              </div>
-
-              <div className="grid grid-cols-2 gap-6 mt-8">
-
-                <div className="border border-white/10 rounded-[30px] p-8 bg-black hover:-translate-y-2 transition-all duration-300">
-
-                  <p className="text-gray-400 text-2xl">
-                    Verified Users
-                  </p>
-
-                  <h3 className="text-6xl font-bold mt-6">
-                    8.4K
-                  </h3>
-
-                </div>
-
-                <div className="border border-white/10 rounded-[30px] p-8 bg-black hover:-translate-y-2 transition-all duration-300">
-
-                  <p className="text-gray-400 text-2xl">
-                    Active Loans
-                  </p>
-
-                  <h3 className="text-6xl font-bold mt-6">
-                    1.2K
-                  </h3>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* Enterprise Section */}
-      <section className="py-28 px-6">
-
-        <div className="max-w-7xl mx-auto">
-
-          <div className="text-center mb-20">
-
-            <h2 className="text-6xl font-black">
-              Enterprise Infrastructure
-            </h2>
-
-            <p className="text-gray-400 text-xl mt-6 max-w-3xl mx-auto">
-              Built for scalable digital identity, secure financial systems,
-              and AI-powered trust architecture.
-            </p>
-
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-
-            {[
-              {
-                title: "AI Verification",
-                desc: "Intelligent fraud detection, automated KYC verification, and AI-driven identity security systems.",
-              },
-              {
-                title: "Smart Lending",
-                desc: "Blockchain-powered lending infrastructure and decentralized financial trust systems.",
-              },
-              {
-                title: "Secure Infrastructure",
-                desc: "Enterprise-grade cybersecurity and decentralized identity architecture for Africa.",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="border border-white/10 rounded-[30px] p-10 bg-[#050816] hover:-translate-y-2 hover:border-cyan-400/30 transition-all duration-300 shadow-[0_0_50px_rgba(34,211,238,0.05)]"
-              >
-
-                <h3 className="text-3xl font-bold">
-                  {item.title}
-                </h3>
-
-                <p className="text-gray-400 mt-6 leading-relaxed">
-                  {item.desc}
-                </p>
-
-              </div>
-            ))}
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* Trusted By */}
-      <section className="py-28 px-6">
-
-        <div className="max-w-7xl mx-auto">
-
-          <div className="text-center mb-20">
-
-            <h2 className="text-6xl font-black">
-              Trusted By Innovators
-            </h2>
-
-            <p className="text-gray-400 text-xl mt-6">
-              Businesses and organizations trust Asasanta Nexus.
-            </p>
-
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-
-            {[
-              {
-                quote: "Asasanta Nexus transformed our digital verification process with AI automation and blockchain security.",
-                company: "Nexus Agro Ventures",
-                type: "Agricultural Finance",
-              },
-              {
-                quote: "The lending infrastructure and trust scoring system improved our customer onboarding significantly.",
-                company: "FuturePay Africa",
-                type: "Fintech Solutions",
-              },
-              {
-                quote: "One of the most futuristic AI-powered infrastructure platforms we have worked with.",
-                company: "Digital Trust Network",
-                type: "Identity Infrastructure",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="border border-white/10 rounded-[30px] p-10 bg-[#050816] hover:-translate-y-2 transition-all duration-300"
-              >
-
-                <p className="text-gray-300 leading-relaxed">
-                  "{item.quote}"
-                </p>
-
-                <div className="mt-10">
-                  <h3 className="text-2xl font-bold">
-                    {item.company}
-                  </h3>
-
-                  <p className="text-gray-500 mt-2">
-                    {item.type}
-                  </p>
-                </div>
-
-              </div>
-            ))}
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* Stats */}
-      <section className="px-6">
-
-        <div className="max-w-7xl mx-auto border border-white/10 rounded-[40px] bg-[#050816] p-14 grid grid-cols-2 md:grid-cols-4 gap-10 shadow-[0_0_50px_rgba(34,211,238,0.05)]">
-
-          {[
-            ["12K+", "Platform Users"],
-            ["8.4K", "Verified Identities"],
-            ["₦2.4B", "Processed Loans"],
-            ["99.9%", "System Reliability"],
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="text-center"
-            >
-
-              <h2 className="text-5xl md:text-6xl font-black">
-                {item[0]}
-              </h2>
-
-              <p className="text-gray-500 mt-3">
-                {item[1]}
-              </p>
-
-            </div>
-          ))}
-
-        </div>
-
-      </section>
-
-      {/* CTA */}
-      <section className="py-28 px-6">
-
-        <div className="max-w-6xl mx-auto border border-white/10 rounded-[40px] bg-[#050816] p-20 text-center shadow-[0_0_60px_rgba(34,211,238,0.06)]">
-
-          <h2 className="text-6xl font-black">
-            Ready To Scale With AI?
-          </h2>
-
-          <p className="text-gray-400 text-xl mt-6 max-w-3xl mx-auto">
-            Join the next generation of decentralized financial infrastructure
-            and AI-powered identity systems.
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300">
+            Asasanta Trust Agent is an AI-assisted verification prototype for structured risk review,
+            explainable trust scoring, and tamper-evident proof records on Casper Testnet.
           </p>
 
-          <button className="mt-12 px-10 py-5 rounded-2xl bg-white text-black font-bold hover:scale-105 transition-all duration-300">
-            Get Started
-          </button>
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+            <a
+              href="/trust-agent"
+              className="rounded-2xl bg-cyan-300 px-6 py-4 text-center font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200"
+            >
+              Launch Trust Agent
+            </a>
+            <a
+              href="https://github.com/ASASANTA360/asasanta-nexus-app-v2"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-2xl border border-white/15 px-6 py-4 text-center font-semibold text-white transition hover:border-white/35 hover:bg-white/5"
+            >
+              View source code
+            </a>
+          </div>
 
+          <p className="mt-6 text-sm leading-6 text-slate-400">
+            Built as a demonstration of AI-assisted review and on-chain evidence. It is not a live
+            identity provider or a substitute for regulatory KYC/compliance processes.
+          </p>
         </div>
 
+        <div className="relative">
+          <div className="absolute -inset-8 rounded-full bg-cyan-300/10 blur-3xl" />
+          <div className="relative rounded-3xl border border-white/10 bg-slate-900/80 p-5 shadow-2xl shadow-cyan-950/30 sm:p-7">
+            <div className="flex items-center justify-between border-b border-white/10 pb-5">
+              <div>
+                <p className="text-sm text-slate-400">Verification preview</p>
+                <h2 className="mt-1 text-xl font-bold">Trust review result</h2>
+              </div>
+              <span className="rounded-full bg-emerald-400/15 px-3 py-1.5 text-xs font-semibold text-emerald-300">
+                REVIEWED
+              </span>
+            </div>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-[0.9fr_1.1fr]">
+              <div className="rounded-2xl border border-cyan-200/15 bg-cyan-200/5 p-5">
+                <p className="text-sm text-slate-400">Trust score</p>
+                <p className="mt-3 text-6xl font-black text-cyan-200">84</p>
+                <p className="mt-1 text-sm text-slate-300">out of 100</p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-black/20 p-5">
+                <p className="text-sm text-slate-400">Decision summary</p>
+                <p className="mt-3 text-lg font-semibold">Low-risk demo profile</p>
+                <ul className="mt-4 space-y-3 text-sm text-slate-300">
+                  <li className="flex gap-2"><span className="text-cyan-300">✓</span> Structured input review</li>
+                  <li className="flex gap-2"><span className="text-cyan-300">✓</span> Explainable risk signals</li>
+                  <li className="flex gap-2"><span className="text-cyan-300">✓</span> Optional Casper proof step</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-medium">Casper evidence layer</p>
+                  <p className="mt-1 text-sm text-slate-400">Store only a minimal verification reference and result metadata.</p>
+                </div>
+                <span className="shrink-0 rounded-lg border border-cyan-200/20 px-2.5 py-1 text-xs text-cyan-200">TESTNET</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-12">
-
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-
-          <div>
-
-            <h2 className="text-3xl font-bold">
-              Asasanta Nexus
-            </h2>
-
-            <p className="text-gray-500 mt-3">
-              AI-powered digital infrastructure for Africa.
-            </p>
-
+      <section id="how-it-works" className="border-y border-white/10 bg-black/15 px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">Workflow</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">A focused verification flow for a hackathon MVP.</h2>
           </div>
 
-          <div className="flex items-center gap-8 text-gray-400">
-            <a href="#">GitHub</a>
-            <a href="#">Docs</a>
-            <a href="#">Contact</a>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {[
+              ["01", "Submit demo inputs", "Enter only the minimum demo information required for a structured trust review."],
+              ["02", "Review AI-assisted result", "Inspect the score, risk level, decision rationale, and supporting signals before proceeding."],
+              ["03", "Anchor a proof record", "Record non-sensitive result metadata on Casper Testnet for a tamper-evident audit reference."],
+            ].map(([number, title, description]) => (
+              <article key={number} className="rounded-3xl border border-white/10 bg-slate-900/70 p-7">
+                <span className="text-sm font-bold text-cyan-300">{number}</span>
+                <h3 className="mt-8 text-2xl font-bold">{title}</h3>
+                <p className="mt-4 leading-7 text-slate-300">{description}</p>
+              </article>
+            ))}
           </div>
-
         </div>
+      </section>
 
+      <section className="px-6 py-24">
+        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-3">
+          {[
+            ["Explainable output", "Show the score, risk level, and key signals together so a reviewer can understand the recommendation."],
+            ["Human review first", "The agent supports a decision workflow; it should not be presented as an autonomous legal or compliance authority."],
+            ["Practical demo scope", "Keep the prototype clear: a secure-looking workflow, transparent limitations, and verifiable testnet evidence."],
+          ].map(([title, description]) => (
+            <article key={title} className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-7">
+              <h3 className="text-2xl font-bold">{title}</h3>
+              <p className="mt-4 leading-7 text-slate-300">{description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="casper" className="px-6 pb-24">
+        <div className="mx-auto max-w-7xl rounded-3xl border border-cyan-200/15 bg-cyan-200/[0.04] p-7 sm:p-10">
+          <div className="grid gap-9 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">Casper integration</p>
+              <h2 className="mt-4 text-4xl font-black tracking-tight">Make the evidence layer visible.</h2>
+              <p className="mt-5 max-w-xl leading-7 text-slate-300">
+                The MVP references a Casper Testnet contract package for recording verification result metadata.
+                A production version should use a privacy-preserving reference or hash, never raw government ID values.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-5 sm:p-6">
+              <p className="text-sm text-slate-400">Contract package hash</p>
+              <code className="mt-3 block break-all rounded-xl bg-black/40 p-4 text-sm leading-6 text-cyan-100">{contractPackageHash}</code>
+              <div className="mt-5 flex flex-wrap gap-3 text-sm">
+                <span className="rounded-lg border border-white/10 px-3 py-2 text-slate-300">Network: Casper Testnet</span>
+                <span className="rounded-lg border border-white/10 px-3 py-2 text-slate-300">Entry point: register_user</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="guardrails" className="border-t border-white/10 bg-black/15 px-6 py-20">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">MVP guardrails</p>
+          <div className="mt-5 grid gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border border-amber-300/20 bg-amber-300/[0.05] p-7">
+              <h2 className="text-2xl font-bold text-amber-100">Do not put raw identity data on-chain</h2>
+              <p className="mt-3 leading-7 text-slate-300">
+                Use a generated verification ID or a privacy-preserving hash instead of NIN, BVN, email, phone number, or other personal data.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-7">
+              <h2 className="text-2xl font-bold">Keep claims accurate</h2>
+              <p className="mt-3 leading-7 text-slate-300">
+                Present this as a testnet prototype. Avoid unverified user counts, lending claims, fake testimonials, or claims of official KYC approval.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-24">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-200/10 to-indigo-400/10 p-10 text-center sm:p-16">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200">Ready for the demo</p>
+          <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Review a trust score. Then anchor the proof on Casper.</h2>
+          <a href="/trust-agent" className="mt-9 inline-flex rounded-2xl bg-white px-6 py-4 font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-100">
+            Open the Trust Agent
+          </a>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/10 px-6 py-9">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 Asasanta Trust Agent · Casper Testnet prototype</p>
+          <a className="transition hover:text-white" href="https://github.com/ASASANTA360/asasanta-nexus-app-v2" target="_blank" rel="noreferrer">
+            GitHub repository
+          </a>
+        </div>
       </footer>
-
     </main>
   );
 }
