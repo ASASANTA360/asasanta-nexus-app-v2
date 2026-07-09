@@ -43,24 +43,22 @@ Explainable assessment + SHA-256 proof receipt
 Casper Testnet contract: register_user
 ```
 
-## Casper integration
+Casper Testnet Integration
 
-The current MVP references this Casper Testnet contract package hash:
-
-```text
+Contract package hash:
 dcc0ba60b15e82e5d3cada693f5ece98cb825faa1314dd7d81dee90fad180d05
-```
 
-For local or secure server deployment, configure the following environment variables. Do not commit a secret key to the repository.
+The MVP anchors only a privacy-preserving proof hash on Casper Testnet. It does not store BVN, NIN, phone numbers, emails, document images, or raw identity data on-chain.
 
-```bash
-CASPER_NODE_ADDRESS=http://YOUR_CASPER_RPC_HOST:7777/rpc
-CASPER_CHAIN_NAME=casper-test
-CASPER_SECRET_KEY_PATH=/secure/path/to/secret_key.pem
-CASPER_CONTRACT_PACKAGE_HASH=dcc0ba60b15e82e5d3cada693f5ece98cb825faa1314dd7d81dee90fad180d05
-```
-
-When the secure signer is not configured, the UI reports that on-chain anchoring is unavailable rather than returning a fake success state.
+Testing steps:
+1. Open the live demo.
+2. Go to /trust-agent.
+3. Enter a demo case reference such as DEMO-TRUST-001.
+4. Run the trust assessment.
+5. Review the score breakdown and decision.
+6. Generate/download the proof receipt.
+7. If secure signer is configured, submit the proof hash to Casper Testnet.
+8. Confirm that only proof hash, score, and decision metadata are sent on-chain.
 
 ## Run locally
 
@@ -79,6 +77,12 @@ Open `http://localhost:3000`.
 4. Run the assessment and show the score breakdown.
 5. Copy or download the proof receipt.
 6. Explain that the Casper step anchors only the proof hash, not raw identity data.
+
+ ## Important Note
+
+If secure signer environment variables are not configured, the UI clearly reports that on-chain anchoring is unavailable instead of returning a fake success state.
+
+This ensures the MVP stays honest and transparent during testing. The app only allows Casper Testnet anchoring when the required secure signer configuration is available.
 
 ## Stack
 
