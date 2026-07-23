@@ -37,10 +37,12 @@
     "eslint-config-next": "16.2.6",
     "forge-std": "github:foundry-rs/forge-std#v1.9.4",
     "hardhat": "^3.9.0",
-    "lightningcss-win32-x64-msvc": "1.32.0",
     "tailwindcss": "^4",
     "typescript": "~6.0.3",
     "viem": "^2.52.2"
   },
-  "type": "module"
+  "type": "module",
+  "optionalDependencies": {
+    "lightningcss-win32-x64-msvc": "1.32.0"
+  }
 }
