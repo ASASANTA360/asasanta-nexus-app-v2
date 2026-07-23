@@ -102,3 +102,75 @@ This ensures the MVP stays honest and transparent during testing. The app only a
 ## Built for
 
 Casper Agentic Buildathon · Asasanta Global Technologies
+
+## Casper x402 Paid API
+
+Asasanta Trust Agent includes a production x402-protected premium trust-report endpoint with real WCSPR settlement on Casper Testnet.
+
+### Production endpoint
+
+```text
+GET https://asasanta-nexus-app-v2-ws55.vercel.app/api/x402/trust-report
+```
+
+An unpaid request returns:
+
+```text
+HTTP 402 Payment Required
+```
+
+### Payment configuration
+
+- Protocol: x402 v2
+- Scheme: `exact`
+- Network: `casper:casper-test`
+- Asset: Wrapped CSPR (`WCSPR`)
+- Price: `1,000,000` atomic units (`0.001 WCSPR`)
+- Settlement entry point: `transfer_with_authorization`
+- WCSPR package hash: `3d80df21ba4ee4d66a2a1f60c32570dd5685e4b279f6538162a5fd1314847c1e`
+
+### Verified end-to-end payment
+
+```text
+402 Payment Required
+→ EIP-712 payment authorization
+→ Facilitator verification
+→ Casper Testnet settlement
+→ 200 OK premium trust report
+```
+
+Successful Casper Testnet transaction:
+
+```text
+48b7e4b500d77167f434a2711d2144d42bf4f819ed24a87778034ba1ecb4973a
+```
+
+Successful response example:
+
+```json
+{
+  "ok": true,
+  "service": "Asasanta Trust Agent Premium Report",
+  "payment": {
+    "protocol": "x402",
+    "network": "casper:casper-test",
+    "asset": "WCSPR",
+    "amountAtomic": "1000000"
+  },
+  "report": {
+    "trustScore": 88,
+    "riskLevel": "LOW",
+    "recommendation": "APPROVE"
+  }
+}
+```
+
+### Test client
+
+The repository includes:
+
+```text
+scripts/test-x402-client.ts
+```
+
+The test client reads the Casper private-key file path from an environment variable. Private keys, PEM files, API keys, and recovery phrases must never be committed to GitHub.
